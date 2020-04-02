@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "beego-example",
+    "name": "go-chat",
     "annotations": {
       "description": "An example Beego (http://beego.me/) application written in Golang",
       "tags": "quickstart,golang",
@@ -10,15 +10,15 @@
     }
   },
   "labels": {
-      "template": "beego-example",
-      "app": "beego-example"
+      "template": "go-chat",
+      "app": "go-chat"
   },
   "objects": [
     {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "beego-example",
+        "name": "go-chat",
         "annotations": {
           "description": "Exposes and load balances the application pods"
         }
@@ -32,7 +32,7 @@
           }
         ],
         "selector": {
-          "name": "beego-example"
+          "name": "go-chat"
         }
       }
     },
@@ -40,13 +40,13 @@
       "kind": "Route",
       "apiVersion": "v1",
       "metadata": {
-        "name": "beego-example"
+        "name": "go-chat"
       },
       "spec": {
         "host": "${APPLICATION_DOMAIN}",
         "to": {
           "kind": "Service",
-          "name": "beego-example"
+          "name": "go-chat"
         }
       }
     },
@@ -54,7 +54,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "beego-example",
+        "name": "go-chat",
         "annotations": {
           "description": "Keeps track of changes in the application image"
         }
@@ -64,7 +64,7 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "beego-example",
+        "name": "go-chat",
         "annotations": {
           "description": "Defines how to build the application"
         }
@@ -84,7 +84,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "beego-example:latest"
+            "name": "go-chat:latest"
           }
         },
         "triggers": [
@@ -107,7 +107,7 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "beego-example",
+        "name": "go-chat",
         "annotations": {
           "description": "Defines how to deploy the application server"
         }
@@ -122,11 +122,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "beego-example"
+                "go-chat"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "beego-example:latest"
+                "name": "go-chat:latest"
               }
             }
           },
@@ -136,20 +136,20 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "beego-example"
+          "name": "go-chat"
         },
         "template": {
           "metadata": {
-            "name": "beego-example",
+            "name": "go-chat",
             "labels": {
-              "name": "beego-example"
+              "name": "go-chat"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "beego-example",
-                "image": "beego-example",
+                "name": "go-chat",
+                "image": "go-chat",
                 "ports": [
                   {
                     "containerPort": 8080
@@ -166,11 +166,12 @@
     {
       "name": "SOURCE_REPOSITORY_URL",
       "description": "The URL of the repository with your application source code",
-      "value": "https://github.com/openshift/golang-ex.git"
+      "value": "https://github.com/fikarisasi/golang-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
-      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch"
+      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch",
+      "value": "master"
     },
     {
       "name": "CONTEXT_DIR",
@@ -179,7 +180,7 @@
     {
       "name": "APPLICATION_DOMAIN",
       "description": "The exposed hostname that will route to the Beego service",
-      "value": "beego-example.office.corp.indosat.com"
+      "value": "go-chat.office.corp.indosat.com"
     },
     {
       "name": "GITHUB_WEBHOOK_SECRET",
